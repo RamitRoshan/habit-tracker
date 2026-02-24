@@ -14,9 +14,9 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/habits", require("./routes/habitRoutes"));
-app.use("/api/logs", require("./routes/logRoutes"));
+// app.use("/api/auth", require("./routes/authRoutes"));
+// app.use("/api/habits", require("./routes/habitRoutes"));
+// app.use("/api/logs", require("./routes/logRoutes"));
 
 
 //starting the server
