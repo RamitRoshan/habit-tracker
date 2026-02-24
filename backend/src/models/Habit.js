@@ -6,9 +6,15 @@ const habitSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
-  title: String,
-  description: String,
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+  }
 },
 { timestamps: true });
 
