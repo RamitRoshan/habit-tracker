@@ -1,4 +1,4 @@
-const express = require("express"); 
+const express = require("express");
 const cors = require("cors");
 const configureDB = require("./src/config/db");
 
@@ -12,13 +12,11 @@ configureDB();
 app.use(express.json());
 app.use(cors());
 
-
-// app.use("/api/auth", require("./routes/authRoutes"));
-// app.use("/api/habits", require("./routes/habitRoutes"));
-// app.use("/api/logs", require("./routes/logRoutes"));
-
+app.use("/api/auth", require("./src/routes/authRoutes"));
+app.use("/api/habits", require("./src/routes/habitRoutes"));
+app.use("/api/logs", require("./src/routes/logRoutes"));
 
 //starting the server
 app.listen(port, () => {
-    console.log(`Server running on port, ${port}`);
-})
+  console.log(`Server running on port, ${port}`);
+});
