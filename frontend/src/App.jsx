@@ -1,10 +1,16 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Navbar from './components/Navbar'
 
 function App() { 
 
   return (
     <div>
-      <h2 className='font-bold'>Habbit Tracker</h2>
+      <Navbar/>
+      
+      <Routes>
+        <Route path='/' element={<Dashboard/>}/>
+      </Routes>
     </div>
   )
 }
