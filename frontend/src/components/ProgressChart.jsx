@@ -1,4 +1,4 @@
-const Chart = () => {
+const ProgressChart = () => {
     return (
         <div>
             <h2>Chart</h2>
@@ -6,4 +6,4 @@ const Chart = () => {
     )
 };
 
-export default Chart;
+export default ProgressChart;
