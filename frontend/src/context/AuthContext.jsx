@@ -1,31 +1,74 @@
+// import { createContext, useState } from "react";
+
+// // eslint-disable-next-line react-refresh/only-export-components
+// export const AuthContext = createContext();
+
+
+// export const AuthProvider = ({children}) => {
+    
+//     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+
+//     const login = (data) => {
+//         localStorage.setItem("token", data.token);
+
+//         localStorage.setItem("user", JSON.stringify(data.user));
+//         setUser(data.user);
+//     };
+
+//     const logout = () => {
+//         localStorage.clear();
+//         setUser(null);
+//     };
+
+//     return (
+//         <AuthContext.Provider
+//            value={{ user, login, logout}}
+//         >
+//             {children}
+//         </AuthContext.Provider>
+//     )
+// }
+
+
 import { createContext, useState } from "react";
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
 
+export const AuthProvider = ({ children }) => {
 
-export const AuthProvider = ({children}) => {
-    
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
 
+  const login = (data) => {
 
-    const login = (data) => {
-        localStorage.setItem("token", data.token);
+    console.log("LOGIN RESPONSE:", data);
 
-        localStorage.setItem("user", JSON.stringify(data.user));
-        setUser(data.user);
-    };
+    localStorage.setItem("token", data.token);
 
-    const logout = () => {
-        localStorage.clear();
-        setUser(null);
-    };
+    localStorage.setItem(
+      "user",
+      JSON.stringify(data.user)
+    );
 
-    return (
-        <AuthContext.Provider
-           value={{ user, login, logout}}
-        >
-            {children}
-        </AuthContext.Provider>
-    )
-}
+    setUser(data.user);
+  };
+
+  const logout = () => {
+
+    localStorage.removeItem("token");
+
+    localStorage.removeItem("user");
+
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{ user, login, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};

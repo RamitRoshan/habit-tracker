@@ -10,7 +10,9 @@ API.interceptors.request.use((req) => {
 
   if (token) {
     req.headers.authorization = token;
-  }
+  }else {
+  delete req.headers.authorization;
+}
 
   return req;
 });
