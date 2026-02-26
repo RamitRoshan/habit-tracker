@@ -9,10 +9,10 @@ import Register from './pages/Register'
 
 function App() { 
 
-  return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
+  return ( 
+    <div className="min-h-screen bg-slate-100 text-gray-900">
       <Navbar/>
-      <div className="pt-4">
+      <div className="pt-16 px-4">
         <Routes>
           <Route path='/' element={
             <PrivateRoute>

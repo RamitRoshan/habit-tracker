@@ -15,6 +15,7 @@ app.use(cors());
 app.use("/api/auth", require("./src/routes/authRoutes"));
 app.use("/api/habits", require("./src/routes/habitRoutes"));
 app.use("/api/logs", require("./src/routes/logRoutes"));
+app.use("/api/dashboard", require("./src/routes/dashboardRoutes"));
 
 //starting the server
 app.listen(port, () => {

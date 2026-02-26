@@ -1,24 +1,38 @@
 const mongoose = require("mongoose");
-const {Schema, model} = mongoose;
 
-const logSchema = new Schema({
-  habitId: {
-    type: Schema.Types.ObjectId,
-    ref: "Habit",
-    required: true,
+const { Schema, model } = mongoose;
+
+const logSchema = new Schema(
+  {
+    habitId: {
+      type: Schema.Types.ObjectId,
+      ref: "Habit",
+      required: true,
+    },
+
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    date: {
+      type: String,
+      required: true,
+    },
   },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  date: {
-    type: String,
-    required: true,
-  },
+  {
+    timestamps: true,
+  }
+); 
 
-},{ timestamps: true });
+//preventing dublicate completion
+logSchema.index(
+  { habitId: 1, userId: 1, date: 1 },
+  { unique: true }
+);
 
 
-const HabitLog = model('HabitLog', logSchema);
+
+const HabitLog = model("HabitLog",logSchema);
 module.exports = HabitLog;
