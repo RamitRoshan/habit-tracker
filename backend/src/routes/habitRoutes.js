@@ -1,13 +1,16 @@
 const router = require("express").Router();
 
-const auth = require("../middleware/authMiddleware");
+const authMiddleware  = require("../middleware/authMiddleware");
 
-const {createHabit,getHabits,deleteHabit,} = require("../controllers/habitController");
+const {createHabit,getHabits, updateHabit, deleteHabit,} = require("../controllers/habitController");
 
-router.post("/", auth, createHabit);
+router.post("/", authMiddleware, createHabit);
 
-router.get("/", auth, getHabits);
+router.get("/", authMiddleware, getHabits);
 
-router.delete("/:id", auth, deleteHabit);
+router.put("/:id", authMiddleware, updateHabit); //update
+
+router.delete("/:id", authMiddleware, deleteHabit);
 
 module.exports = router;
+

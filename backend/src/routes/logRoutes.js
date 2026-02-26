@@ -1,11 +1,18 @@
 const router = require("express").Router();
 
-const auth = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
-const {markComplete,getLogs,} = require("../controllers/logController");
+const {
+  markComplete,
+  getLogs,
+  getHabitLogs,
+} = require("../controllers/logController");
 
-router.post("/", auth, markComplete);
+router.post("/", authMiddleware, markComplete);
 
-router.get("/", auth, getLogs);
+router.get("/", authMiddleware, getLogs);
+
+// Get single habit history
+router.get("/:habitId", authMiddleware, getHabitLogs);
 
 module.exports = router;

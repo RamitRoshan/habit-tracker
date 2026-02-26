@@ -1,21 +1,30 @@
 const HabitLog = require("../models/HabitLog");
 
+// Mark Habit Complete
 exports.markComplete = async (req, res) => {
   try {
     const { habitId } = req.body;
 
+    if (!habitId) {
+      return res.status(400).json({
+        message: "habitId is required",
+      });
+    }
+
     const today = new Date().toISOString().split("T")[0];
 
+    // PREVENT DUPLICATE SAME DAY
     const existing = await HabitLog.findOne({
       habitId,
       userId: req.user.id,
       date: today,
     });
 
-    if (existing)
+    if (existing) {
       return res.status(400).json({
-        message: "Already completed today",
+        message: "Habit already completed today",
       });
+    }
 
     const log = await HabitLog.create({
       habitId,
@@ -23,7 +32,10 @@ exports.markComplete = async (req, res) => {
       date: today,
     });
 
-    res.json(log);
+    res.status(201).json({
+      message: "Habit marked complete",
+      log,
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -31,11 +43,32 @@ exports.markComplete = async (req, res) => {
   }
 };
 
+// GET ALL LOGS OF USER (Dashboard)
 exports.getLogs = async (req, res) => {
   try {
     const logs = await HabitLog.find({
       userId: req.user.id,
+    })
+      .populate("habitId", "title description")
+      .sort({ date: -1 });
+
+    res.json(logs);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
     });
+  }
+};
+
+// GET LOGS OF SINGLE HABIT -  IMPORTANT FOR HISTORY VIEW
+exports.getHabitLogs = async (req, res) => {
+  try {
+    const habitId = req.params.habitId;
+
+    const logs = await HabitLog.find({
+      habitId,
+      userId: req.user.id,
+    }).sort({ date: -1 });
 
     res.json(logs);
   } catch (error) {
