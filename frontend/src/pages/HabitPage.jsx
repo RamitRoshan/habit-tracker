@@ -1,129 +1,3 @@
-// import React from "react";
-// import { useState, useEffect } from "react";
-// import API from "../api/axios";
-// import HabitCard from "../components/HabitCard";
-
-// function Habits() {
-//   const [habits, setHabits] = useState([]);
-
-//   const [title, setTitle] = useState("");
-//   const [description, setDescription] = useState("");
-//   const [message, setMessage] = useState("");
-//   const [isError, setIsError] = useState(false);
-
-//   const fetchHabits = async () => {
-//     try{
-//         const res = await API.get("/habits");
-//         setHabits(res.data);
-
-//     }catch(err){
-//         console.log(err);
-//     }
-//   };
-  
-//   useEffect(() => {
-//     fetchHabits();
-//   }, []);
-
-//   const createHabit = async () => {
-//     if (!title.trim() || !description.trim()) {
-//       setMessage("Please fill out both fields.");
-//       setIsError(true);
-//       setTimeout(() => {
-//         setMessage("");
-//         setIsError(false);
-//       }, 3000);
-//       return;
-//     }
-
-//     await API.post("/habits", {title, description});
-//     fetchHabits();
-//     setTitle("");
-//     setDescription("");
-//     setMessage("Habit added!");
-//     setIsError(false);
-//     setTimeout(() => setMessage(""), 3000);
-//   };
-
-//   const deleteHabit = async (id) => {
-//     await API.delete(`/habits/${id}`);
-
-//     fetchHabits();
-//     setMessage("Habit deleted.");
-//     setIsError(false);
-//     setTimeout(() => setMessage(""), 3000);
-//   };
-
-//   const markComplete = async (id) => {
-//     await API.post("/logs", {
-//       habitId: id,
-//     });
-
-//     setMessage("Habit marked complete!");
-//     setIsError(false);
-//     setTimeout(() => setMessage(""), 3000);
-//   };
-
-//   return (
-//     <div className="p-6 flex flex-col items-center">
-//       <h2 className="text-xl font-semibold mb-4 text-center">Habits</h2>
-
-//       {message && (
-//         <div
-//           className={`mb-4 font-medium ${isError ? "text-red-600" : "text-green-600"}`}
-//         >
-//           {message}
-//         </div>
-//       )}
-
-//       <div className="mb-6 space-y-2 w-full max-w-md">
-//         <input
-//           className="w-full border rounded px-3 py-2 bg-gray-800 text-white placeholder-gray-400 hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 transition"
-//           type="text"
-//           placeholder="Title"
-//           value={title}
-//           onChange={(e) =>
-//             setTitle(e.target.value)
-//           }
-//         />
-
-//         <input
-//           className="w-full border rounded px-3 py-2 bg-gray-800 text-white placeholder-gray-400 hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 transition"
-//           type="text"
-//           placeholder="Description"
-//           value={description}
-//           onChange={(e) =>
-//             setDescription(e.target.value)
-//           }
-//         />
-
-//         <button
-//           onClick={createHabit}
-//           className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 transition"
-//         >
-//           Add Habit
-//         </button>
-//       </div>
-
-//       <div className="space-y-4 w-full max-w-md">
-//         {habits.map((habit) => (
-//           <HabitCard
-//             key={habit._id}
-//             habit={habit}
-//             onDelete={deleteHabit}
-//             onComplete={markComplete}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Habits;
-
-
-
-
 import { useState, useEffect } from "react";
 import API from "../api/axios";
 import HabitCard from "../components/HabitCard";
@@ -143,8 +17,7 @@ function Habits() {
   const [isError, setIsError] = useState(false);
 
 
-
-  // FETCH HABITS
+ 
   const fetchHabits = async () => {
     try {
 
@@ -166,10 +39,7 @@ function Habits() {
   }, []);
 
 
-
-
-  // CREATE OR UPDATE HABIT
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
 
     if (!title.trim()) {
 
@@ -192,7 +62,6 @@ function Habits() {
         setEditingId(null);
 
       } else {
-
         await API.post("/habits", {
           title,
           description,
@@ -201,7 +70,6 @@ function Habits() {
         showMessage("Habit created successfully");
 
       }
-
       setTitle("");
       setDescription("");
 
@@ -216,9 +84,7 @@ function Habits() {
   };
 
 
-
-  // DELETE HABIT
-  const deleteHabit = async (id) => {
+const deleteHabit = async (id) => {
 
     try {
 
@@ -236,10 +102,8 @@ function Habits() {
 
   };
 
-
-
-  // MARK COMPLETE
-  const markComplete = async (id) => {
+ 
+const markComplete = async (id) => {
 
     try {
 
@@ -261,31 +125,21 @@ function Habits() {
   };
 
 
-
-  // EDIT HABIT
-  const editHabit = (habit) => {
+const editHabit = (habit) => {
 
     setEditingId(habit._id);
-
     setTitle(habit.title);
-
     setDescription(habit.description || "");
 
   };
 
-
-
-  // VIEW HISTORY
-  const viewHistory = async (habitId) => {
+ 
+const viewHistory = async (habitId) => {
 
     try {
-
       const res = await API.get(`/logs/${habitId}`);
-
       setHistory(res.data);
-
     } catch {
-
       showMessage("Error loading history", true);
 
     }
@@ -297,9 +151,7 @@ function Habits() {
   const showMessage = (msg, error = false) => {
 
     setMessage(msg);
-
     setIsError(error);
-
     setTimeout(() => {
       setMessage("");
     }, 3000);
@@ -318,7 +170,7 @@ function Habits() {
 
 
 
-      {/* MESSAGE */}
+      {/* message */}
       {message && (
         <div
           className={`mb-4 px-4 py-2 rounded ${
@@ -333,7 +185,7 @@ function Habits() {
 
 
 
-      {/* FORM */}
+      {/* Form */}
       <div className="bg-gray-800 p-4 rounded w-full max-w-md mb-6">
 
         <input
@@ -348,7 +200,7 @@ function Habits() {
 
         <input
           className="w-full mb-3 px-3 py-2 rounded bg-gray-700"
-          placeholder="Description (optional)"
+          placeholder="Description"
           value={description}
           onChange={(e) =>
             setDescription(e.target.value)
@@ -369,7 +221,7 @@ function Habits() {
 
 
 
-      {/* HABIT LIST */}
+      {/* Habites list*/}
       <div className="w-full max-w-md space-y-4">
 
         {habits.map((habit) => (
@@ -389,7 +241,7 @@ function Habits() {
 
 
 
-      {/* HISTORY SECTION */}
+      {/* History section */}
       {history.length > 0 && (
 
         <div className="mt-8 bg-gray-800 p-4 rounded w-full max-w-md">

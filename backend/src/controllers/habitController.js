@@ -1,7 +1,7 @@
 const Habit = require("../models/Habit");
 
 
-// CREATE HABIT
+ 
 exports.createHabit = async (req, res) => {
   try {
     const habit = await Habit.create({
@@ -20,7 +20,7 @@ exports.createHabit = async (req, res) => {
 };
 
 
-// GET ALL HABITS
+//get all habits
 exports.getHabits = async (req, res) => {
   try {
     const habits = await Habit.find({
@@ -37,7 +37,7 @@ exports.getHabits = async (req, res) => {
 };
 
 
-// UPDATE HABIT  ✅ NEW FEATURE
+//update habits
 exports.updateHabit = async (req, res) => {
   try {
 
@@ -73,7 +73,7 @@ exports.updateHabit = async (req, res) => {
 };
 
 
-// DELETE HABIT
+//delete habits
 exports.deleteHabit = async (req, res) => {
   try {
 

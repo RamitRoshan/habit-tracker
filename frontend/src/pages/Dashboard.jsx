@@ -56,10 +56,7 @@ export default function Dashboard() {
 
   };
 
-
-
-
-  // CALCULATE STREAK & COMPLETION %
+  //calculating streak and completion 
   const calculateStats = (logsData) => {
 
     const dates = logsData.map(
@@ -72,7 +69,7 @@ export default function Dashboard() {
 
 
 
-    // STREAK CALCULATION
+    //calculating streak
     let currentStreak = 0;
 
     let today = new Date();
@@ -81,8 +78,7 @@ export default function Dashboard() {
 
       const d = new Date(uniqueDates[i]);
 
-      const diff =
-        Math.floor(
+      const diff = Math.floor(
           (today - d) /
             (1000 * 60 * 60 * 24)
         );
@@ -97,16 +93,10 @@ export default function Dashboard() {
 
     setStreak(currentStreak);
 
-
-
-    // COMPLETION RATE
+    // Completion rates
     const totalDays = 30;
 
-    const completion =
-      (uniqueDates.length /
-        totalDays) *
-      100;
-
+    const completion =(uniqueDates.length /totalDays) *100;
     setCompletionRate(
       completion.toFixed(1)
     );
@@ -115,7 +105,7 @@ export default function Dashboard() {
 
 
 
-  // CHART DATA
+  //chart data
   const chartData = logs.map((log) => ({
     date: log.date,
     count: 1,
@@ -133,19 +123,12 @@ export default function Dashboard() {
 
   }
 
-
-
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
 
 
-      <h1 className="text-3xl font-bold mb-6">
-        Dashboard
-      </h1>
+      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
-
-
-      {/* STATS */}
       <div className="grid grid-cols-2 gap-4 mb-6">
 
 
@@ -162,6 +145,7 @@ export default function Dashboard() {
 
 
         <div className="bg-gray-800 p-4 rounded">
+
           <h2 className="text-gray-400">
             Completion Rate
           </h2>
@@ -169,6 +153,7 @@ export default function Dashboard() {
           <p className="text-2xl font-bold text-blue-400">
             {completionRate}%
           </p>
+
         </div>
 
 
@@ -176,7 +161,7 @@ export default function Dashboard() {
 
 
 
-      {/* CHART */}
+      {/* Charts */}
       <div className="bg-gray-800 p-4 rounded">
 
 
@@ -193,11 +178,8 @@ export default function Dashboard() {
           <LineChart data={chartData}>
 
             <CartesianGrid stroke="#444" />
-
             <XAxis dataKey="date" />
-
             <YAxis />
-
             <Tooltip />
 
             <Line
@@ -207,7 +189,6 @@ export default function Dashboard() {
             />
 
           </LineChart>
-
         </ResponsiveContainer>
 
 

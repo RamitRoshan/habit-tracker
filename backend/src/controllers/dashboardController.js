@@ -39,7 +39,7 @@ exports.getDashboard = async (req, res) => {
       today.setDate(today.getDate() - 1);
     }
 
-    // weekly progress (last 7 days)
+    // weekly progress 
     const weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 6);
     weekAgo.setHours(0, 0, 0, 0);

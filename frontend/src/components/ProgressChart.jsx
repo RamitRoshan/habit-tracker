@@ -1,4 +1,3 @@
-import React from "react";
 import {LineChart,Line,XAxis,YAxis,Tooltip,} from "recharts";
 
 function ProgressChart({ data }) {
@@ -9,16 +8,14 @@ function ProgressChart({ data }) {
       data={data}
     >
       <XAxis dataKey="date" />
-
       <YAxis />
-
       <Tooltip />
-
       <Line
         type="monotone"
         dataKey="count"
         stroke="#8884d8"
       />
+
     </LineChart>
   );
 }

@@ -1,6 +1,6 @@
 const HabitLog = require("../models/HabitLog");
 
-// Mark Habit Complete
+//mark habit complete
 exports.markComplete = async (req, res) => {
   try {
     const { habitId } = req.body;
@@ -13,7 +13,7 @@ exports.markComplete = async (req, res) => {
 
     const today = new Date().toISOString().split("T")[0];
 
-    // PREVENT DUPLICATE SAME DAY
+    //preventing dublications
     const existing = await HabitLog.findOne({
       habitId,
       userId: req.user.id,
@@ -43,7 +43,7 @@ exports.markComplete = async (req, res) => {
   }
 };
 
-// GET ALL LOGS OF USER (Dashboard)
+//gets all logs of users
 exports.getLogs = async (req, res) => {
   try {
     const logs = await HabitLog.find({
@@ -58,9 +58,9 @@ exports.getLogs = async (req, res) => {
       message: error.message,
     });
   }
-};
+}; 
 
-// GET LOGS OF SINGLE HABIT -  IMPORTANT FOR HISTORY VIEW
+// gets log of single habit
 exports.getHabitLogs = async (req, res) => {
   try {
     const habitId = req.params.habitId;

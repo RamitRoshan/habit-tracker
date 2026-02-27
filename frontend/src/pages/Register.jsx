@@ -35,7 +35,6 @@ function Register() {
         err.response?.data?.message ||
         "Registration failed"
       );
-
       setTimeout(() => setError(""), 3000);
     }
 
