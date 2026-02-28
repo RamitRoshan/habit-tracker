@@ -5,7 +5,7 @@ A full-stack Habit Tracking Application built using the MERN stack (MongoDB, Exp
 
 ### Live Demo:
 
-Live URL: [Live](jdncjdnj)
+Live URL: [Live](https://habit-tracker-frontend-kwoj.onrender.com/)
 
 GitHub Repositor: 
 - [Frontend](https://github.com/RamitRoshan/habit-tracker/tree/main/frontend) 
@@ -71,7 +71,7 @@ Each habit contains:
 
 ### Deployment
 
-1. Frontend: Vercel
+1. Frontend: Render
 2. Backend: Render
 3. Database: MongoDB Atlas
 
