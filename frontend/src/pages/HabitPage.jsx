@@ -1,51 +1,36 @@
 import { useState, useEffect } from "react";
 import API from "../api/axios";
-import HabitCard from "../components/HabitCard";
 
 function Habits() {
 
   const [habits, setHabits] = useState([]);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
   const [editingId, setEditingId] = useState(null);
-
   const [history, setHistory] = useState([]);
-
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
 
- 
   const fetchHabits = async () => {
     try {
-
       const res = await API.get("/habits");
-
       setHabits(res.data);
-
     } catch (err) {
-
       console.log(err);
-
     }
   };
 
-
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchHabits();
   }, []);
 
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
 
     if (!title.trim()) {
-
       showMessage("Title is required", true);
       return;
-
     }
 
     try {
@@ -58,10 +43,10 @@ const handleSubmit = async () => {
         });
 
         showMessage("Habit updated successfully");
-
         setEditingId(null);
 
       } else {
+
         await API.post("/habits", {
           title,
           description,
@@ -70,28 +55,29 @@ const handleSubmit = async () => {
         showMessage("Habit created successfully");
 
       }
+
       setTitle("");
       setDescription("");
-
       fetchHabits();
 
     } catch (err) {
 
-      showMessage(err.response?.data?.message || "Error", true);
+      showMessage(
+        err.response?.data?.message || "Error",
+        true
+      );
 
     }
 
   };
 
 
-const deleteHabit = async (id) => {
+  const deleteHabit = async (id) => {
 
     try {
 
       await API.delete(`/habits/${id}`);
-
       fetchHabits();
-
       showMessage("Habit deleted");
 
     } catch {
@@ -102,8 +88,8 @@ const deleteHabit = async (id) => {
 
   };
 
- 
-const markComplete = async (id) => {
+
+  const markComplete = async (id) => {
 
     try {
 
@@ -115,17 +101,14 @@ const markComplete = async (id) => {
 
     } catch (err) {
 
-      showMessage(
-        err.response?.data?.message,
-        true
-      );
+      showMessage(err.response?.data?.message, true);
 
     }
 
   };
 
 
-const editHabit = (habit) => {
+  const editHabit = (habit) => {
 
     setEditingId(habit._id);
     setTitle(habit.title);
@@ -133,13 +116,16 @@ const editHabit = (habit) => {
 
   };
 
- 
-const viewHistory = async (habitId) => {
+
+  const viewHistory = async (habitId) => {
 
     try {
+
       const res = await API.get(`/logs/${habitId}`);
       setHistory(res.data);
+
     } catch {
+
       showMessage("Error loading history", true);
 
     }
@@ -147,11 +133,11 @@ const viewHistory = async (habitId) => {
   };
 
 
-
   const showMessage = (msg, error = false) => {
 
     setMessage(msg);
     setIsError(error);
+
     setTimeout(() => {
       setMessage("");
     }, 3000);
@@ -159,21 +145,21 @@ const viewHistory = async (habitId) => {
   };
 
 
-
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
 
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center px-4 sm:px-6 pt-20 pb-10">
 
-      <h1 className="text-3xl font-bold mb-6">
+      {/* Title */}
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
         Habit Tracker
       </h1>
 
 
-
-      {/* message */}
+      {/* Message */}
       {message && (
+
         <div
-          className={`mb-4 px-4 py-2 rounded ${
+          className={`mb-4 px-4 py-2 rounded w-full max-w-md text-center text-sm sm:text-base ${
             isError
               ? "bg-red-600"
               : "bg-green-600"
@@ -181,15 +167,15 @@ const viewHistory = async (habitId) => {
         >
           {message}
         </div>
+
       )}
 
 
-
       {/* Form */}
-      <div className="bg-gray-800 p-4 rounded w-full max-w-md mb-6">
+      <div className="bg-gray-800 p-4 sm:p-5 rounded w-full max-w-md mb-6">
 
         <input
-          className="w-full mb-3 px-3 py-2 rounded bg-gray-700"
+          className="w-full mb-3 px-3 py-2 rounded bg-gray-700 text-sm sm:text-base"
           placeholder="Habit Title"
           value={title}
           onChange={(e) =>
@@ -197,9 +183,8 @@ const viewHistory = async (habitId) => {
           }
         />
 
-
         <input
-          className="w-full mb-3 px-3 py-2 rounded bg-gray-700"
+          className="w-full mb-3 px-3 py-2 rounded bg-gray-700 text-sm sm:text-base"
           placeholder="Description"
           value={description}
           onChange={(e) =>
@@ -207,10 +192,9 @@ const viewHistory = async (habitId) => {
           }
         />
 
-
         <button
           onClick={handleSubmit}
-          className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded"
+          className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-sm sm:text-base"
         >
           {editingId
             ? "Update Habit"
@@ -220,8 +204,7 @@ const viewHistory = async (habitId) => {
       </div>
 
 
-
-      {/* Habites list*/}
+      {/* Habit List */}
       <div className="w-full max-w-md space-y-4">
 
         {habits.map((habit) => (
@@ -240,20 +223,22 @@ const viewHistory = async (habitId) => {
       </div>
 
 
-
-      {/* History section */}
+      {/* History */}
       {history.length > 0 && (
 
         <div className="mt-8 bg-gray-800 p-4 rounded w-full max-w-md">
 
-          <h2 className="font-bold mb-3">
+          <h2 className="font-bold mb-3 text-sm sm:text-base">
             Completion History
           </h2>
 
           {history.map((log) => (
 
-            <div key={log._id}>
-              {log.date}
+            <div
+              key={log._id}
+              className="text-gray-300 text-sm sm:text-base"
+            >
+              {new Date(log.date).toLocaleDateString()}
             </div>
 
           ))}
@@ -263,7 +248,9 @@ const viewHistory = async (habitId) => {
       )}
 
     </div>
+
   );
+
 }
 
 export default Habits;
