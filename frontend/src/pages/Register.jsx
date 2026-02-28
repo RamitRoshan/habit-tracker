@@ -35,40 +35,99 @@ function Register() {
         err.response?.data?.message ||
         "Registration failed"
       );
+
       setTimeout(() => setError(""), 3000);
     }
-
   };
 
-  return ( 
+  return (
 
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4">
+    <div className="
+      min-h-[calc(100vh-64px)]
+      flex
+      items-center
+      justify-center
+      px-4
+      sm:px-6
+      lg:px-8
+      py-6
+    ">
 
-      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 border border-gray-200">
+      <div className="
+        w-full
+        max-w-md
+        bg-white
+        shadow-xl
+        rounded-2xl
+        p-6
+        sm:p-8
+        border
+        border-gray-200
+      ">
 
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        {/* Heading */}
+        <h2 className="
+          text-2xl
+          sm:text-3xl
+          font-bold
+          text-center
+          text-gray-800
+          mb-6
+        ">
           Create Account
         </h2>
 
+        {/* Error Message */}
         {error && (
-          <div className="bg-red-100 text-red-600 p-2 rounded mb-4 text-sm">
+          <div className="
+            bg-red-100
+            text-red-600
+            px-3
+            py-2
+            rounded-lg
+            mb-4
+            text-sm
+            text-center
+          ">
             {error}
           </div>
         )}
 
+        {/* Success Message */}
         {success && (
-          <div className="bg-green-100 text-green-600 p-2 rounded mb-4 text-sm">
+          <div className="
+            bg-green-100
+            text-green-600
+            px-3
+            py-2
+            rounded-lg
+            mb-4
+            text-sm
+            text-center
+          ">
             {success}
           </div>
         )}
 
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
 
+          {/* Name */}
           <input
             type="text"
             placeholder="Full Name"
             required
-            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+            className="
+              w-full
+              px-4
+              py-3
+              border
+              rounded-lg
+              focus:outline-none
+              focus:ring-2
+              focus:ring-green-500
+              transition
+            "
             value={form.name}
             onChange={(e) =>
               setForm({
@@ -78,11 +137,22 @@ function Register() {
             }
           />
 
+          {/* Email */}
           <input
             type="email"
             placeholder="Email"
             required
-            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+            className="
+              w-full
+              px-4
+              py-3
+              border
+              rounded-lg
+              focus:outline-none
+              focus:ring-2
+              focus:ring-green-500
+              transition
+            "
             value={form.email}
             onChange={(e) =>
               setForm({
@@ -92,11 +162,22 @@ function Register() {
             }
           />
 
+          {/* Password */}
           <input
             type="password"
             placeholder="Password"
             required
-            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+            className="
+              w-full
+              px-4
+              py-3
+              border
+              rounded-lg
+              focus:outline-none
+              focus:ring-2
+              focus:ring-green-500
+              transition
+            "
             value={form.password}
             onChange={(e) =>
               setForm({
@@ -106,20 +187,44 @@ function Register() {
             }
           />
 
+          {/* Button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-lg font-semibold hover:scale-[1.02] transition"
+            className="
+              w-full
+              bg-gradient-to-r
+              from-green-600
+              to-teal-600
+              text-white
+              py-3
+              rounded-lg
+              font-semibold
+              hover:scale-[1.02]
+              active:scale-[0.98]
+              transition
+              duration-200
+            "
           >
             Register
           </button>
 
         </form>
 
-        <p className="text-center mt-4 text-gray-600 text-sm">
+        {/* Footer */}
+        <p className="
+          text-center
+          mt-5
+          text-gray-600
+          text-sm
+        ">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-green-600 font-semibold hover:underline"
+            className="
+              text-green-600
+              font-semibold
+              hover:underline
+            "
           >
             Login
           </Link>
@@ -128,6 +233,7 @@ function Register() {
       </div>
 
     </div>
+
   );
 }
 
