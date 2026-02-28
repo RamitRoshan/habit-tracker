@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../api/axios";
+import HabitCard from "../components/HabitCard";
 
 function Habits() {
 
