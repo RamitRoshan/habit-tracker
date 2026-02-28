@@ -14,26 +14,17 @@ import {
 export default function Dashboard() {
 
   const [logs, setLogs] = useState([]);
-
   const [streak, setStreak] = useState(0);
-
-  const [completionRate, setCompletionRate] =
-    useState(0);
-
-
+  const [completionRate, setCompletionRate] = useState(0);
 
   useEffect(() => {
 
     if (!localStorage.getItem("token")) {
       return;
     }
-
-    // eslint-disable-next-line react-hooks/immutability
     fetchLogs();
 
   }, []);
-
-
 
 
   const fetchLogs = async () => {
@@ -56,20 +47,13 @@ export default function Dashboard() {
 
   };
 
-  //calculating streak and completion 
   const calculateStats = (logsData) => {
 
-    const dates = logsData.map(
-      (log) => log.date
-    );
+    const dates = logsData.map((log) => log.date);
 
-    const uniqueDates = [
-      ...new Set(dates),
-    ].sort().reverse();
+    const uniqueDates = [...new Set(dates)].sort().reverse();
 
-
-
-    //calculating streak
+    // streak calculation
     let currentStreak = 0;
 
     let today = new Date();
@@ -79,9 +63,8 @@ export default function Dashboard() {
       const d = new Date(uniqueDates[i]);
 
       const diff = Math.floor(
-          (today - d) /
-            (1000 * 60 * 60 * 24)
-        );
+        (today - d) / (1000 * 60 * 60 * 24)
+      );
 
       if (diff === currentStreak) {
         currentStreak++;
@@ -90,13 +73,14 @@ export default function Dashboard() {
       }
 
     }
-
     setStreak(currentStreak);
 
-    // Completion rates
+    // completion rate
     const totalDays = 30;
 
-    const completion =(uniqueDates.length /totalDays) *100;
+    const completion =
+      (uniqueDates.length / totalDays) * 100;
+
     setCompletionRate(
       completion.toFixed(1)
     );
@@ -105,97 +89,98 @@ export default function Dashboard() {
 
 
 
-  //chart data
-  const chartData = logs.map((log) => ({
+  // chart data
+const chartData = logs.map((log) => ({
     date: log.date,
     count: 1,
-  }));
+}));
 
-
-
-  if (!localStorage.getItem("token")) {
+if (!localStorage.getItem("token")) {
 
     return (
-      <div className="min-h-screen flex items-center justify-center text-white">
+      <div className="min-h-screen flex items-center justify-center text-white bg-gray-900 px-4 text-center">
         Please login to view dashboard
       </div>
     );
 
-  }
+}
 
-  return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+return (
 
-
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-
-      <div className="grid grid-cols-2 gap-4 mb-6">
+    <div className="min-h-screen bg-gray-900 text-white px-4 sm:px-6 lg:px-8 py-6">
 
 
-        <div className="bg-gray-800 p-4 rounded">
-          <h2 className="text-gray-400">
+      {/* Title */}
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6">
+        Dashboard
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+
+
+        {/* Streak */}
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow">
+
+          <h2 className="text-gray-400 text-sm sm:text-base">
             Current Streak
           </h2>
 
-          <p className="text-2xl font-bold text-green-400">
+          <p className="text-xl sm:text-2xl font-bold text-green-400">
             {streak} days
           </p>
+
         </div>
 
 
 
-        <div className="bg-gray-800 p-4 rounded">
+        {/* Completion Rate */}
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow">
 
-          <h2 className="text-gray-400">
+          <h2 className="text-gray-400 text-sm sm:text-base">
             Completion Rate
           </h2>
 
-          <p className="text-2xl font-bold text-blue-400">
+          <p className="text-xl sm:text-2xl font-bold text-blue-400">
             {completionRate}%
           </p>
-
         </div>
-
-
       </div>
 
 
 
-      {/* Charts */}
-      <div className="bg-gray-800 p-4 rounded">
+      {/* Chart */}
+      <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow">
 
-
-        <h2 className="mb-4 font-semibold">
+        <h2 className="mb-4 font-semibold text-base sm:text-lg">
           Progress Chart
         </h2>
 
+        <div className="w-full h-[250px] sm:h-[300px]">
 
-        <ResponsiveContainer
-          width="100%"
-          height={300}
-        >
+          <ResponsiveContainer width="100%" height="100%">
 
-          <LineChart data={chartData}>
+            <LineChart data={chartData}>
 
-            <CartesianGrid stroke="#444" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-
-            <Line
-              type="monotone"
-              dataKey="count"
-              stroke="#22c55e"
-            />
-
-          </LineChart>
-        </ResponsiveContainer>
-
-
+              <CartesianGrid stroke="#444" />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 12 }}
+              />
+              <YAxis
+                tick={{ fontSize: 12 }}
+              />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="count"
+                stroke="#22c55e"
+                strokeWidth={2}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-
-
     </div>
-  );
+);
 
 }
